@@ -205,17 +205,23 @@ final class AvocadoArt {
         }
     }
 
-    /// Two leaves only — no stem. They converge right at the crown of the head,
-    /// overlapping slightly into the neck so there's no floating gap.
+    /// Two leaves only — no stem. Long and mostly upright, standing up clearly
+    /// above the crown rather than splaying sideways and hugging the silhouette.
     private func paintSprout(_ c: inout PixelCanvas) {
         let neckTop = Art.neck.y - Art.neck.r
-        let junctionY = neckTop + 5
+        let junctionY = neckTop + 2
 
         func leaf(cx: Double, cy: Double, rx: Double, ry: Double, deg: Double) {
             let a = deg * .pi / 180
             let ca = cos(a), sa = sin(a)
-            let x0 = Int(cx - rx - 3), x1 = Int(cx + rx + 3)
-            let y0 = Int(cy - ry - 10), y1 = Int(cy + ry + 10)
+            // Rotation-aware bounding box — with these leaves now nearly vertical,
+            // rx mostly contributes to the Y extent, not X, so a box sized off the
+            // un-rotated axes (as before) would clip the tip.
+            let orx = rx + 2, ory = ry + 2
+            let halfW = (orx * orx * ca * ca + ory * ory * sa * sa).squareRoot()
+            let halfH = (orx * orx * sa * sa + ory * ory * ca * ca).squareRoot()
+            let x0 = Int(cx - halfW - 1), x1 = Int(cx + halfW + 1)
+            let y0 = Int(cy - halfH - 1), y1 = Int(cy + halfH + 1)
             for y in max(0, y0)...min(Art.H - 1, y1) {
                 for x in max(0, x0)...min(Art.W - 1, x1) {
                     let px = Double(x) + 0.5 - cx, py = Double(y) + 0.5 - cy
@@ -232,11 +238,14 @@ final class AvocadoArt {
                 }
             }
         }
-        // Thinner and more upright than a soft rounded leaf — sharper, less
-        // flower-petal-like.
+        // deg=0 is horizontal in this local frame (rx runs along world +X at
+        // deg=0) and deg=-90 is straight up (world -Y), so "nearly vertical"
+        // means deg near -90, not near 0 — leaning 20° outward from there.
+        // Long and mostly upright — a proper standing sprout, not two petals
+        // splayed flat against the head.
         let cx = Art.cx
-        leaf(cx: cx - 12, cy: junctionY + 2, rx: 17, ry: 5, deg: -22)
-        leaf(cx: cx + 12, cy: junctionY + 1, rx: 17, ry: 5, deg: 22)
+        leaf(cx: cx - 10, cy: junctionY + 2, rx: 27, ry: 6, deg: -110)
+        leaf(cx: cx + 10, cy: junctionY + 1, rx: 27, ry: 6, deg: -70)
 
         c.fillCircle(cx, junctionY, 5, Palette.outline)
         c.fillCircle(cx, junctionY, 3.8, Palette.bud)

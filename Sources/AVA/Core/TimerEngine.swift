@@ -144,25 +144,12 @@ final class TimerEngine {
 
     /// Scroll / typing adjustment. Idle changes the planned length; running stretches
     /// or shortens the live deadline.
+    /// Idle only, on purpose — once a session is running or paused, an accidental
+    /// scroll must never silently change what you're counting down. The only way
+    /// back to an adjustable state is pause then reset.
     func adjust(minutes delta: Int) {
-        switch state {
-        case .idle:
-            setMinutes(plannedMinutes + delta)
-        case .paused:
-            pausedRemaining = max(60, pausedRemaining + Double(delta) * 60)
-            duration = max(duration, pausedRemaining)
-            onTick?()
-        case .running:
-            guard let end = endDate else { return }
-            let newEnd = end.addingTimeInterval(Double(delta) * 60)
-            let minEnd = Date().addingTimeInterval(5)
-            endDate = max(minEnd, newEnd)
-            duration = max(duration, duration + Double(delta) * 60)
-            armFireTimer()
-            onTick?()
-        case .finished:
-            break
-        }
+        guard state == .idle else { return }
+        setMinutes(plannedMinutes + delta)
     }
 
     func setMinutes(_ m: Int) {

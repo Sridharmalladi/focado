@@ -47,7 +47,7 @@ final class WindowController: NSWindowController {
     private var motionPhase: Double = 0
     private var bellTimer: Timer?
     private var bellElapsed: TimeInterval = 0
-    private let bellInterval: TimeInterval = 1.1
+    private let bellInterval: TimeInterval = 0.35
     private let bellDuration: TimeInterval = 30
 
     init() {
@@ -213,9 +213,9 @@ final class WindowController: NSWindowController {
     private func vibrate() {
         guard let win = window else { return }
         let original = win.frame.origin
-        let offsets: [CGFloat] = [7, -7, 5, -5, 3, -3, 0]
+        let offsets: [CGFloat] = [5, -5, 3, -3, 0]
         var i = 0
-        let t = Timer(timeInterval: 0.03, repeats: true) { [weak win] timer in
+        let t = Timer(timeInterval: 0.025, repeats: true) { [weak win] timer in
             guard let win else { timer.invalidate(); return }
             guard i < offsets.count else { timer.invalidate(); return }
             win.setFrameOrigin(NSPoint(x: original.x + offsets[i], y: original.y))
@@ -246,7 +246,10 @@ final class WindowController: NSWindowController {
     }
 
     private func ring() {
-        if Settings.shared.soundEnabled { NSSound(named: "Glass")?.play() }
+        // "Tink" is short and percussive — it stays a crisp, distinct ding at a
+        // fast repeat rate. "Glass" has a long resonant decay that would smear
+        // together into one blur at this cadence instead of reading as dings.
+        if Settings.shared.soundEnabled { NSSound(named: "Tink")?.play() }
         vibrate()
     }
 
