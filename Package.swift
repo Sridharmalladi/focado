@@ -2,11 +2,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "AVA",
+    name: "Focado",
     platforms: [.macOS(.v14)],
     targets: [
         .executableTarget(
-            name: "AVA",
+            name: "Focado",
             path: "Sources/AVA",
             swiftSettings: [.unsafeFlags(["-Ounchecked"], .when(configuration: .release))]
         )

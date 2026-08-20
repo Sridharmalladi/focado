@@ -1,10 +1,10 @@
 #!/bin/bash
-# Builds AVA.app: compiles release binary, assembles the bundle, ad-hoc signs it.
+# Builds Focado.app: compiles release binary, assembles the bundle, ad-hoc signs it.
 set -euo pipefail
 cd "$(dirname "$0")"
 
-APP="AVA.app"
-BIN_NAME="AVA"
+APP="Focado.app"
+BIN_NAME="Focado"
 
 echo "-- building release binary --"
 swift build -c release

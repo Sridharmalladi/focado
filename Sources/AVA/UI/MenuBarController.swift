@@ -65,7 +65,7 @@ final class MenuBarController {
             .target = self
         menu.addItem(withTitle: "Reset", action: #selector(reset), keyEquivalent: "").target = self
         menu.addItem(.separator())
-        menu.addItem(withTitle: "Show AVA", action: #selector(show), keyEquivalent: "").target = self
+        menu.addItem(withTitle: "Show Focado", action: #selector(show), keyEquivalent: "").target = self
         menu.addItem(.separator())
 
         let countdownItem = menu.addItem(
@@ -82,7 +82,7 @@ final class MenuBarController {
         menu.addItem(withTitle: "Today: \(stats.todayCount) sessions · \(stats.todayMinutes) min", action: nil, keyEquivalent: "")
         menu.addItem(withTitle: "Streak: \(stats.streakDays) day\(stats.streakDays == 1 ? "" : "s")", action: nil, keyEquivalent: "")
         menu.addItem(.separator())
-        menu.addItem(withTitle: "Quit AVA", action: #selector(quit), keyEquivalent: "q").target = self
+        menu.addItem(withTitle: "Quit Focado", action: #selector(quit), keyEquivalent: "q").target = self
 
         item.menu = menu
         item.button?.performClick(nil)

@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>AVA</string>
+	<string>Focado</string>
 	<key>CFBundleDisplayName</key>
-	<string>AVA</string>
+	<string>Focado</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.sridharmalladi.ava</string>
+	<string>com.sridharmalladi.focado</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>CFBundleShortVersionString</key>
@@ -15,9 +15,9 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
-	<string>AVA1</string>
+	<string>FOC1</string>
 	<key>CFBundleExecutable</key>
-	<string>AVA</string>
+	<string>Focado</string>
 	<key>CFBundleIconFile</key>
 	<string>AppIcon</string>
 	<key>CFBundleIconName</key>

@@ -271,7 +271,7 @@ final class TimerEngine {
         guard activity == nil else { return }
         activity = ProcessInfo.processInfo.beginActivity(
             options: [.userInitiatedAllowingIdleSystemSleep],
-            reason: "AVA pomodoro session running")
+            reason: "Focado pomodoro session running")
     }
 
     private func endActivity() {

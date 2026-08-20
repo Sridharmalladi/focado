@@ -391,7 +391,7 @@ extension WindowController: AvocadoViewDelegate {
         menu.addItem(zoomItem)
         menu.addItem(NSMenuItem(title: "Hide", action: #selector(menuHide), keyEquivalent: ""))
         menu.addItem(NSMenuItem.separator())
-        menu.addItem(NSMenuItem(title: "Quit AVA", action: #selector(menuQuit), keyEquivalent: "q"))
+        menu.addItem(NSMenuItem(title: "Quit Focado", action: #selector(menuQuit), keyEquivalent: "q"))
         return menu
     }
 
