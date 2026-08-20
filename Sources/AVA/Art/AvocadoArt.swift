@@ -205,11 +205,15 @@ final class AvocadoArt {
         }
     }
 
-    /// Two leaves only — no stem. Long and mostly upright, standing up clearly
-    /// above the crown rather than splaying sideways and hugging the silhouette.
+    /// Short stem + two leaves at a moderate outward angle, matching the
+    /// reference photo directly rather than the taller no-stem crown tried earlier.
     private func paintSprout(_ c: inout PixelCanvas) {
         let neckTop = Art.neck.y - Art.neck.r
-        let junctionY = neckTop + 2
+        let stemTop = 16
+        let stemBottom = Int(neckTop) - 2
+        c.fillRect(Int(Art.cx) - 4, stemTop, 8, stemBottom - stemTop, Palette.outline)
+        c.fillRect(Int(Art.cx) - 2, stemTop + 2, 4, stemBottom - stemTop - 4, Palette.outlineSoft)
+        let junctionY = Double(stemTop)
 
         func leaf(cx: Double, cy: Double, rx: Double, ry: Double, deg: Double) {
             let a = deg * .pi / 180
@@ -239,13 +243,11 @@ final class AvocadoArt {
             }
         }
         // deg=0 is horizontal in this local frame (rx runs along world +X at
-        // deg=0) and deg=-90 is straight up (world -Y), so "nearly vertical"
-        // means deg near -90, not near 0 — leaning 20° outward from there.
-        // Long and mostly upright — a proper standing sprout, not two petals
-        // splayed flat against the head.
+        // deg=0) and deg=-90 is straight up (world -Y) — a 45° outward lean from
+        // vertical matches the reference photo's leaf spread.
         let cx = Art.cx
-        leaf(cx: cx - 10, cy: junctionY + 2, rx: 27, ry: 6, deg: -110)
-        leaf(cx: cx + 10, cy: junctionY + 1, rx: 27, ry: 6, deg: -70)
+        leaf(cx: cx - 6, cy: junctionY + 2, rx: 12, ry: 5, deg: -135)
+        leaf(cx: cx + 6, cy: junctionY + 1, rx: 12, ry: 5, deg: -45)
 
         c.fillCircle(cx, junctionY, 5, Palette.outline)
         c.fillCircle(cx, junctionY, 3.8, Palette.bud)
