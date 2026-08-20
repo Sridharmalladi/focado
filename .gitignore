@@ -1,0 +1,5 @@
+.build/
+AVA.app/
+.DS_Store
+.vscode/
+.claude/
